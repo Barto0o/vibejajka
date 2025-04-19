@@ -1,0 +1,171 @@
+      //---LOS SANTOS---
+markers.push(L.marker([912.5, 2497]).addTo(map).bindPopup('<img src="LS/1.png" width="200"><br>Market Station'));
+
+markers.push(L.marker([1205.5, 2604]).addTo(map).bindPopup('<img src="LS/2.png" width="200"><br>Vinewood'));
+
+markers.push(L.marker([1202, 2846]).addTo(map).bindPopup('<img src="LS/3.png" width="200"><br>Market'));
+
+markers.push(L.marker([1310, 2649.5]).addTo(map).bindPopup('<img src="LS/4.png" width="200"><br>Vinewood'));
+
+markers.push(L.marker([1283.5, 3086]).addTo(map).bindPopup('<img src="LS/5.png" width="200"><br>Downtown LS'));
+
+markers.push(L.marker([1303, 3127.5]).addTo(map).bindPopup('<img src="LS/6.png" width="200"><br>Downtown LS'));
+
+markers.push(L.marker([1218, 2954.5]).addTo(map).bindPopup('<img src="LS/7.png" width="200"><br>Market'));
+
+markers.push(L.marker([1119.5, 2469]).addTo(map).bindPopup('<img src="LS/8.png" width="200"><br>Rodeo'));
+
+  markers.push(L.marker([1008.5, 2593]).addTo(map).bindPopup('<img src="LS/9.png" width="200"><br>Marina'));
+
+markers.push(L.marker([654, 2306]).addTo(map).bindPopup('<img src="LS/10.png" width="200"><br>Santa Maria Beach'));
+
+markers.push(L.marker([512, 3065.5]).addTo(map).bindPopup('<img src="LS/11.png" width="200"><br>Los Santos International'));
+
+markers.push(L.marker([1386, 2626.5]).addTo(map).bindPopup('<img src="LS/12.png" width="200"><br>Vinewood'));
+
+markers.push(L.marker([611, 3580]).addTo(map).bindPopup('<img src="LS/13.png" width="200"><br>Willowfield'));
+
+markers.push(L.marker([560.5, 3574.5]).addTo(map).bindPopup('<img src="LS/14.png" width="200"><br>Ocean Docks'));
+
+markers.push(L.marker([565.5, 3195.5]).addTo(map).bindPopup('<img src="LS/15.png" width="200"><br>Verdant Bluffs'));
+
+markers.push(L.marker([705, 3341]).addTo(map).bindPopup('<img src="LS/16.png" width="200"><br>El Corona'));
+
+  markers.push(L.marker([766, 3484]).addTo(map).bindPopup('<img src="LS/17.png" width="200"><br>Willowfield'));
+
+markers.push(L.marker([1235, 3922]).addTo(map).bindPopup('<img src="LS/18.png" width="200"><br>Los Flores'));
+
+markers.push(L.marker([1188.5, 3954.5]).addTo(map).bindPopup('<img src="LS/19.png" width="200"><br>East Beach'));
+
+markers.push(L.marker([1267, 3788.5]).addTo(map).bindPopup('<img src="LS/20.png" width="200"><br>Las Colinas'));
+
+markers.push(L.marker([1090.5, 3729.5]).addTo(map).bindPopup('<img src="LS/21.png" width="200"><br>East Los Santos'));
+
+markers.push(L.marker([1110.5, 3757]).addTo(map).bindPopup('<img src="LS/22.png" width="200"><br>East Los Santos'));
+
+markers.push(L.marker([1043.5, 3845.5]).addTo(map).bindPopup('<img src="LS/23.png" width="200"><br>East Los Santos'));
+
+markers.push(L.marker([984.5, 3681.5]).addTo(map).bindPopup('<img src="LS/24.png" width="200"><br>East Los Santos'));
+
+  markers.push(L.marker([1064.5, 3634]).addTo(map).bindPopup('<img src="LS/25.png" width="200"><br>East Los Santos'));
+
+markers.push(L.marker([1099, 3083.5]).addTo(map).bindPopup('<img src="LS/26.png" width="200"><br>Downtown Los Santos'));
+
+markers.push(L.marker([771, 2809]).addTo(map).bindPopup('<img src="LS/27.png" width="200"><br>Verdant Bluffs'));
+
+markers.push(L.marker([808, 3264.5]).addTo(map).bindPopup('<img src="LS/28.png" width="200"><br>Little Mexico'));
+
+markers.push(L.marker([1153, 3430]).addTo(map).bindPopup('<img src="LS/29.png" width="200"><br>Glen Park'));
+
+markers.push(L.marker([1310, 3419.5]).addTo(map).bindPopup('<img src="LS/30.png" width="200"><br>Las Colinas'));
+
+  markers.push(L.marker([1257, 3449.5]).addTo(map).bindPopup('<img src="LS/31.png" width="200"><br>Glen Park'));
+
+markers.push(L.marker([1192.5, 3382]).addTo(map).bindPopup('<img src="LS/32.png" width="200"><br>Glen Park'));
+
+markers.push(L.marker([1435.5, 2748.5]).addTo(map).bindPopup('<img src="LS/33.png" width="200"><br>Mulholland'));
+
+markers.push(L.marker([1387, 2628.5]).addTo(map).bindPopup('<img src="LS/34.png" width="200"><br>Vinewood'));
+
+markers.push(L.marker([1395.5, 2569]).addTo(map).bindPopup('<img src="LS/35.png" width="200"><br>Richman'));
+
+  markers.push(L.marker([1428, 2519]).addTo(map).bindPopup('<img src="LS/36.png" width="200"><br>Richman'));
+
+markers.push(L.marker([816.5, 2141]).addTo(map).bindPopup('<img src="LS/37.png" width="200"><br>Santa Maria Beach'));
+
+markers.push(L.marker([978.5, 3248]).addTo(map).bindPopup('<img src="LS/38.png" width="200"><br>Commerce'));
+
+markers.push(L.marker([662, 2774.5]).addTo(map).bindPopup('<img src="LS/39.png" width="200"><br>Verdant Bluffs'));
+
+markers.push(L.marker([807, 2850]).addTo(map).bindPopup('<img src="LS/40.png" width="200"><br>Conference Center'));
+
+markers.push(L.marker([915.5, 2922.5]).addTo(map).bindPopup('<img src="LS/41.png" width="200"><br>Verdant Bluffs'));
+
+markers.push(L.marker([760, 2727]).addTo(map).bindPopup('<img src="LS/42.png" width="200"><br>Verona Beach'));
+
+markers.push(L.marker([1059, 2832]).addTo(map).bindPopup('<img src="LS/43.png" width="200"><br>Market'));
+
+//---OUTSKIRTS---
+
+markers.push(L.marker([1105.75, 2027.25]).addTo(map).bindPopup('<img src="WSI/1.png" width="200"><br>Flint Intersection'));
+markers.push(L.marker([1222, 2000.5]).addTo(map).bindPopup('<img src="WSI/2.png" width="200"><br>Flint County'));
+markers.push(L.marker([1933, 2577]).addTo(map).bindPopup('<img src="WSI/3.png" width="200"><br>Red County'));
+markers.push(L.marker([2028, 3638]).addTo(map).bindPopup('<img src="WSI/4.png" width="200"><br>Palomino Creek'));
+markers.push(L.marker([2313, 3647]).addTo(map).bindPopup('<img src="WSI/5.png" width="200"><br>Red County'));
+markers.push(L.marker([2070, 3569]).addTo(map).bindPopup('<img src="WSI/6.png" width="200"><br>Palomino Creek'));
+markers.push(L.marker([2102.75, 3574.75]).addTo(map).bindPopup('<img src="WSI/7.png" width="200"><br>Palomino Creek'));
+markers.push(L.marker([2172, 3610.75]).addTo(map).bindPopup('<img src="WSI/8.png" width="200"><br>Palomino Creek'));
+markers.push(L.marker([2126, 3919.5]).addTo(map).bindPopup('<img src="WSI/9.png" width="200"><br>Hankypanky Point'));
+markers.push(L.marker([2064.75, 3967.75]).addTo(map).bindPopup('<img src="WSI/10.png" width="200"><br>Red County'));
+markers.push(L.marker([1833.5, 3908.25]).addTo(map).bindPopup('<img src="WSI/11.png" width="200"><br>North Rock'));
+markers.push(L.marker([2263, 3930]).addTo(map).bindPopup('<img src="WSI/12.png" width="200"><br>Frederick Bridge'));
+markers.push(L.marker([2379, 2971]).addTo(map).bindPopup('<img src="WSI/13.png" width="200"><br>Montgomery'));
+markers.push(L.marker([1861, 2257]).addTo(map).bindPopup('<img src="WSI/14.png" width="200"><br>Blueberry'));
+markers.push(L.marker([3700, 554]).addTo(map).bindPopup('<img src="WSI/15.png" width="200"><br>Bayside Marina'));
+markers.push(L.marker([3860, 490]).addTo(map).bindPopup('<img src="WSI/16.png" width="200"><br>Tierra Robada'));
+markers.push(L.marker([3862, 510]).addTo(map).bindPopup('<img src="WSI/17.png" width="200"><br>Bayside Tunnel'));
+markers.push(L.marker([3773, 600]).addTo(map).bindPopup('<img src="WSI/18.png" width="200"><br>Tierra Robada'));
+markers.push(L.marker([3139, 229]).addTo(map).bindPopup('<img src="WSI/19.png" width="200"><br>San Fierro'));
+markers.push(L.marker([3919, 1468]).addTo(map).bindPopup('<img src="WSI/20.png" width="200"><br>Valle Ocultado'));
+markers.push(L.marker([3865, 1898]).addTo(map).bindPopup('<img src="WSI/21.png" width="200"><br>Las Payasadas'));
+markers.push(L.marker([3713, 2282]).addTo(map).bindPopup('<img src="WSI/22.png" width="200"><br>Verdant Meadows'));
+markers.push(L.marker([3655, 1524]).addTo(map).bindPopup('<img src="WSI/23.png" width="200"><br>Arco del Oeste'));
+markers.push(L.marker([1561, 2527.5]).addTo(map).bindPopup('<img src="WSI/24.png" width="200"><br>Dillimore'));
+markers.push(L.marker([3512.5, 1609]).addTo(map).bindPopup('<img src="WSI/25.png" width="200"><br>The Sherman Dam'));
+markers.push(L.marker([2432, 2164]).addTo(map).bindPopup('<img src="WSI/26.png" width="200"><br>Middle Bridge'));
+markers.push(L.marker([2321, 2120]).addTo(map).bindPopup('<img src="WSI/27.png" width="200"><br>Blueberry Island'));
+markers.push(L.marker([2814, 1947]).addTo(map).bindPopup('<img src="WSI/28.png" width="200"><br>Fort Carson'));
+markers.push(L.marker([2833, 2029]).addTo(map).bindPopup('<img src="WSI/29.png" width="200"><br>Fort Carson'));
+markers.push(L.marker([3781, 2327.5]).addTo(map).bindPopup('<img src="WSI/30.png" width="200"><br>Verdant Meadows'));
+markers.push(L.marker([3401, 2522]).addTo(map).bindPopup('<img src="WSI/31.png" width="200"><br>Bone County'));
+markers.push(L.marker([1825, 3173]).addTo(map).bindPopup('<img src="WSI/32.png" width="200"><br>Red County'));
+markers.push(L.marker([2342, 2743]).addTo(map).bindPopup('<img src="WSI/33.png" width="200"><br>Red County'));
+markers.push(L.marker([2641, 2544]).addTo(map).bindPopup('<img src="WSI/34.png" width="200"><br>Hunter Quarry'));
+markers.push(L.marker([3314, 1198]).addTo(map).bindPopup('<img src="WSI/35.png" width="200"><br>Tierra Robada'));
+markers.push(L.marker([3626, 1287]).addTo(map).bindPopup('<img src="WSI/36.png" width="200"><br>Tierra Robada'));
+markers.push(L.marker([1962, 3101]).addTo(map).bindPopup('<img src="WSI/37.png" width="200"><br>Red County'));
+markers.push(L.marker([2310, 2446]).addTo(map).bindPopup('<img src="WSI/38.png" width="200"><br>Fallow Bridge'));
+
+// ---SAN FIERRO---
+markers.push(L.marker([1564, 853]).addTo(map).bindPopup('<img src="SF/1.png" width="200"><br>San Fierro'));
+markers.push(L.marker([1620, 830]).addTo(map).bindPopup('<img src="SF/2.png" width="200"><br>Easter Bay Airport'));
+markers.push(L.marker([1633, 747]).addTo(map).bindPopup('<img src="SF/3.png" width="200"><br>Foster Valley'));
+markers.push(L.marker([1522, 765]).addTo(map).bindPopup('<img src="SF/4.png" width="200"><br>Foster Valley'));
+markers.push(L.marker([1915, 573]).addTo(map).bindPopup('<img src="SF/5.png" width="200"><br>Doherty'));
+markers.push(L.marker([1985, 468]).addTo(map).bindPopup('<img src="SF/6.png" width="200"><br>Garcia'));
+markers.push(L.marker([2071, 492]).addTo(map).bindPopup('<img src="SF/7.png" width="200"><br>Garcia'));
+markers.push(L.marker([2093, 469]).addTo(map).bindPopup('<img src="SF/8.png" width="200"><br>Garcia'));
+markers.push(L.marker([1964, 417]).addTo(map).bindPopup('<img src="SF/9.png" width="200"><br>Garcia'));
+markers.push(L.marker([2220, 323]).addTo(map).bindPopup('<img src="SF/10.png" width="200"><br>Queens'));
+markers.push(L.marker([2226, 635]).addTo(map).bindPopup('<img src="SF/11.png" width="200"><br>Doherty'));
+markers.push(L.marker([2244, 727]).addTo(map).bindPopup('<img src="SF/12.png" width="200"><br>Downtown'));
+markers.push(L.marker([1993, 806]).addTo(map).bindPopup('<img src="SF/13.png" width="200"><br>Doherty'));
+markers.push(L.marker([2004, 860]).addTo(map).bindPopup('<img src="SF/14.png" width="200"><br>Easter Bay Airport'));
+markers.push(L.marker([2044, 852]).addTo(map).bindPopup('<img src="SF/15.png" width="200"><br>Easter Basin'));
+markers.push(L.marker([2252, 657]).addTo(map).bindPopup('<img src="SF/16.png" width="200"><br>Kings'));
+markers.push(L.marker([2221, 707]).addTo(map).bindPopup('<img src="SF/17.png" width="200"><br>Doherty'));
+markers.push(L.marker([2854, 273]).addTo(map).bindPopup('<img src="SF/18.png" width="200"><br>Paradiso'));
+markers.push(L.marker([2392, 705.5]).addTo(map).bindPopup('<img src="SF/19.png" width="200"><br>Downtown'));
+
+// ---LAS VENTURAS---
+markers.push(L.marker([3673, 3341.5]).addTo(map).bindPopup('<img src="LV/1.png" width="200"><br>Julius Thruway North'));
+markers.push(L.marker([2724, 3135.5]).addTo(map).bindPopup('<img src="LV/2.png" width="200"><br>LVA Freight Depot'));
+markers.push(L.marker([2450.5, 3251]).addTo(map).bindPopup('<img src="LV/3.png" width="200"><br>Red County'));
+markers.push(L.marker([2559, 3381]).addTo(map).bindPopup('<img src="LV/4.png" width="200"><br>Last Dime Motel'));
+markers.push(L.marker([2630.5, 3965]).addTo(map).bindPopup('<img src="LV/5.png" width="200"><br>Rockshore East'));
+markers.push(L.marker([2680.5, 4013]).addTo(map).bindPopup('<img src="LV/6.png" width="200"><br>Rockshore East'));
+markers.push(L.marker([2871, 3715.5]).addTo(map).bindPopup('<img src="LV/7.png" width="200"><br>The Camels Toe'));
+markers.push(L.marker([2917, 3605.5]).addTo(map).bindPopup('<img src="LV/8.png" width="200"><br>The Camels Toe'));
+markers.push(L.marker([3214, 3860.5]).addTo(map).bindPopup('<img src="LV/9.png" width="200"><br>Pilgrim'));
+markers.push(L.marker([3642.5, 3721.5]).addTo(map).bindPopup('<img src="LV/10.png" width="200"><br>Roca Escalante'));
+markers.push(L.marker([2690.5, 3565]).addTo(map).bindPopup('<img src="LV/11.png" width="200"><br>Come-A-Lot'));
+markers.push(L.marker([2828, 3489]).addTo(map).bindPopup('<img src="LV/12.png" width="200"><br>Come-A-Lot'));
+markers.push(L.marker([3555, 3445]).addTo(map).bindPopup('<img src="LV/13.png" width="200"><br>The Emerald Isle'));
+markers.push(L.marker([3323, 2703]).addTo(map).bindPopup('<img src="LV/14.png" width="200"><br>Whitewood Estates'));
+markers.push(L.marker([3458, 3281.5]).addTo(map).bindPopup('<img src="LV/15.png" width="200"><br>Harry Gold Parkway'));
+markers.push(L.marker([3522.5, 3280.5]).addTo(map).bindPopup('<img src="LV/16.png" width="200"><br>Harry Gold Parkway'));
+markers.push(L.marker([3589, 3252]).addTo(map).bindPopup('<img src="LV/17.png" width="200"><br>Redsands West'));
+markers.push(L.marker([3438, 2773.5]).addTo(map).bindPopup('<img src="LV/18.png" width="200"><br>Whitewood Estates'));
+markers.push(L.marker([3352.5, 2963]).addTo(map).bindPopup('<img src="LV/19.png" width="200"><br>Redsands West'));
+markers.push(L.marker([2475, 2973.5]).addTo(map).bindPopup('<img src="LV/20.png" width="200"><br>Blackfield Chapel'));
+markers.push(L.marker([2832.5, 3858.5]).addTo(map).bindPopup('<img src="LV/21.png" width="200"><br>Las Venturas'));
