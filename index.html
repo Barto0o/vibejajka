@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mapa Pisanek 2025 - Vibe</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <style>
+    html, body, #map {
+      height: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script>
+    // Load your image as the map
+    const map = L.map('map', {
+      crs: L.CRS.Simple,
+      minZoom: -1,
+      maxZoom: 2
+    });
+
+    const image = new Image();
+    image.src = 'map.jpeg'; // your map image
+    image.onload = function() {
+      const w = image.width, h = image.height;
+      const bounds = [[0, 0], [h, w]];
+      const imageLayer = L.imageOverlay('map.jpeg', bounds).addTo(map);
+      map.fitBounds(bounds);
+
+      // Add a marker
+      const marker = L.marker([300, 500]).addTo(map);
+      marker.bindPopup('<img src="screenshot1.jpg" width="200"><br>Cool location!');
+
+
+      map.on('click', function(e) {
+  console.log(e.latlng); // This logs coordinates when you click
+});
+    };
+  </script>
+</body>
+</html>
