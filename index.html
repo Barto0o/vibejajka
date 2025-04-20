@@ -10,276 +10,329 @@
       height: 100%;
       margin: 0;
     }
+    #controls {
+      position: absolute;
+      z-index: 1001;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      font-family: sans-serif;
+      border-radius: 8px;
+      margin: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    #controls button {
+      padding: 5px 10px;
+      cursor: pointer;
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #controls button:hover {
+      background: #e0e0e0;
+    }
   </style>
 </head>
 <body>
     
-    <div id="marker-count" style="position: absolute; z-index: 1001; background: white; padding: 6px; font-family: sans-serif; border-radius: 6px; margin: 10px;">
-      🐰 Pisanki: 0 / 0
-      <br><button onclick="resetProgress()" style="margin-top: 5px;">Reset Progress</button>
-    </div>
+<div id="controls">
+  <div>🐰 Pisanki: <span id="count-display">0 / 0</span></div>
+  <div style="margin-top: 8px; display: flex; gap: 5px;">
+    <button onclick="resetProgress()">Reset postępu</button>
+    <button onclick="toggleMapImage()">Zmiana mapy</button>
+  </div>
+</div>
 
-  <div id="map" style="z-index: 0"></div>
+<div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-  <script>
-    // Load your image as the map
-    const map = L.map('map', {
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+  // Global variables
+  let currentMapImage = localStorage.getItem('preferredMap') || 'map.jpeg';
+  let imageLayer = null;
+  const image = new Image();
+  let map;
+  let markers = []; // Make this let instead of const so we can reset it
+  let collectedCount = 0;
+
+  // Initialize the map
+  function initMap() {
+    if (map) {
+      map.remove();
+    }
+    
+    map = L.map('map', {
       crs: L.CRS.Simple,
       minZoom: -1,
       maxZoom: 2
     });
 
-    const image = new Image();
-    image.src = 'map.jpeg'; // your map image
+    image.src = currentMapImage;
     image.onload = function() {
       const w = image.width, h = image.height;
       const bounds = [[0, 0], [h, w]];
-      const imageLayer = L.imageOverlay('map.jpeg', bounds).addTo(map);
-      map.fitBounds(bounds);
-
       
-    // Custom icons
-    const defaultIcon = L.icon({
-      iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
-      shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
+      if (imageLayer) {
+        map.removeLayer(imageLayer);
+      }
+      
+      imageLayer = L.imageOverlay(currentMapImage, bounds).addTo(map);
+      map.fitBounds(bounds);
+      
+      // Clear existing markers
+      markers.forEach(marker => map.removeLayer(marker));
+      markers = [];
+      collectedCount = 0;
+      
+        // Add all your markers here...
+        addMarker(912.5, 2497, 1, 'Market Station', 'LS/1.png');
+        addMarker(1205.5, 2604, 2, 'Vinewood', 'LS/2.png');
+        addMarker(1202, 2846, 3, 'Market', 'LS/3.png');
+        addMarker(1310, 2649.5, 4, 'Vinewood', 'LS/4.png');
+        addMarker(1283.5, 3086, 5, 'Downtown LS', 'LS/5.png');
+        addMarker(1303, 3127.5, 6, 'Downtown LS', 'LS/6.png');
+        addMarker(1218, 2954.5, 7, 'Market', 'LS/7.png');
+        addMarker(1119.5, 2469, 8, 'Rodeo', 'LS/8.png');
+        addMarker(1008.5, 2593, 9, 'Marina', 'LS/9.png');
+        addMarker(654, 2306, 10, 'Santa Maria Beach', 'LS/10.png');
+        addMarker(512, 3065.5, 11, 'Los Santos International', 'LS/11.png');
+        addMarker(611, 3580, 12, 'Willowfield', 'LS/13.png');
+        addMarker(560.5, 3574.5, 13, 'Ocean Docks', 'LS/14.png');
+        addMarker(565.5, 3195.5, 14, 'Verdant Bluffs', 'LS/15.png');
+        addMarker(705, 3341, 15, 'El Corona', 'LS/16.png');
+        addMarker(766, 3484, 16, 'Willowfield', 'LS/17.png');
+        addMarker(1235, 3922, 17, 'Los Flores', 'LS/18.png');
+        addMarker(1188.5, 3954.5, 18, 'East Beach', 'LS/19.png');
+        addMarker(1267, 3788.5, 19, 'Las Colinas', 'LS/20.png');
+        addMarker(1090.5, 3729.5, 20, 'East Los Santos', 'LS/21.png');
+        addMarker(1110.5, 3757, 21, 'East Los Santos', 'LS/22.png');
+        addMarker(1043.5, 3845.5, 22, 'East Los Santos', 'LS/23.png');
+        addMarker(984.5, 3681.5, 23, 'East Los Santos', 'LS/24.png');
+        addMarker(1064.5, 3634, 24, 'East Los Santos', 'LS/25.png');
+        addMarker(1099, 3083.5, 25, 'Downtown Los Santos', 'LS/26.png');
+        addMarker(771, 2809, 26, 'Verdant Bluffs', 'LS/27.png');
+        addMarker(808, 3264.5, 27, 'Little Mexico', 'LS/28.png');
+        addMarker(1153, 3430, 28, 'Glen Park', 'LS/29.png');
+        addMarker(1310, 3419.5, 29, 'Las Colinas', 'LS/30.png');
+        addMarker(1257, 3449.5, 30, 'Glen Park', 'LS/31.png');
+        addMarker(1192.5, 3382, 31, 'Glen Park', 'LS/32.png');
+        addMarker(1435.5, 2748.5, 32, 'Mulholland', 'LS/33.png');
+        addMarker(1387, 2628.5, 33, 'Vinewood', 'LS/34.png');
+        addMarker(1395.5, 2569, 34, 'Richman', 'LS/35.png');
+        addMarker(1428, 2519, 35, 'Richman', 'LS/36.png');
+        addMarker(816.5, 2141, 36, 'Santa Maria Beach', 'LS/37.png');
+        addMarker(978.5, 3248, 37, 'Commerce', 'LS/38.png');
+        addMarker(662, 2774.5, 38, 'Verdant Bluffs', 'LS/39.png');
+        addMarker(807, 2850, 39, 'Conference Center', 'LS/40.png');
+        addMarker(915.5, 2922.5, 40, 'Verdant Bluffs', 'LS/41.png');
+        addMarker(760, 2727, 41, 'Verona Beach', 'LS/42.png');
+        addMarker(1059, 2832, 42, 'Market', 'LS/43.png');
+        addMarker(1105.75, 2027.25, 43, 'Flint Intersection', 'WSI/1.png');
+        addMarker(1222, 2000.5, 44, 'Flint County', 'WSI/2.png');
+        addMarker(1933, 2577, 45, 'Red County', 'WSI/3.png');
+        addMarker(2028, 3638, 46, 'Palomino Creek', 'WSI/4.png');
+        addMarker(2313, 3647, 47, 'Red County', 'WSI/5.png');
+        addMarker(2070, 3569, 48, 'Palomino Creek', 'WSI/6.png');
+        addMarker(2102.75, 3574.75, 49, 'Palomino Creek', 'WSI/7.png');
+        addMarker(2172, 3610.75, 50, 'Palomino Creek', 'WSI/8.png');
+        addMarker(2126, 3919.5, 51, 'Hankypanky Point', 'WSI/9.png');
+        addMarker(2064.75, 3967.75, 52, 'Red County', 'WSI/10.png');
+        addMarker(1833.5, 3908.25, 53, 'North Rock', 'WSI/11.png');
+        addMarker(2263, 3930, 54, 'Frederick Bridge', 'WSI/12.png');
+        addMarker(2379, 2971, 55, 'Montgomery', 'WSI/13.png');
+        addMarker(1861, 2257, 56, 'Blueberry', 'WSI/14.png');
+        addMarker(3700, 554, 57, 'Bayside Marina', 'WSI/15.png');
+        addMarker(3860, 490, 58, 'Tierra Robada', 'WSI/16.png');
+        addMarker(3862, 510, 59, 'Bayside Tunnel', 'WSI/17.png');
+        addMarker(3773, 600, 60, 'Tierra Robada', 'WSI/18.png');
+        addMarker(3139, 229, 61, 'San Fierro', 'WSI/19.png');
+        addMarker(3919, 1468, 62, 'Valle Ocultado', 'WSI/20.png');
+        addMarker(3865, 1898, 63, 'Las Payasadas', 'WSI/21.png');
+        addMarker(3713, 2282, 64, 'Verdant Meadows', 'WSI/22.png');
+        addMarker(3655, 1524, 65, 'Arco del Oeste', 'WSI/23.png');
+        addMarker(1561, 2527.5, 66, 'Dillimore', 'WSI/24.png');
+        addMarker(3512.5, 1609, 67, 'The Sherman Dam', 'WSI/25.png');
+        addMarker(2432, 2164, 68, 'Middle Bridge', 'WSI/26.png');
+        addMarker(2321, 2120, 69, 'Blueberry Island', 'WSI/27.png');
+        addMarker(2814, 1947, 70, 'Fort Carson', 'WSI/28.png');
+        addMarker(2833, 2029, 71, 'Fort Carson', 'WSI/29.png');
+        addMarker(3781, 2327.5, 72, 'Verdant Meadows', 'WSI/30.png');
+        addMarker(3401, 2522, 73, 'Bone County', 'WSI/31.png');
+        addMarker(1825, 3173, 74, 'Red County', 'WSI/32.png');
+        addMarker(2342, 2743, 75, 'Red County', 'WSI/33.png');
+        addMarker(2641, 2544, 76, 'Hunter Quarry', 'WSI/34.png');
+        addMarker(3314, 1198, 77, 'Tierra Robada', 'WSI/35.png');
+        addMarker(3626, 1287, 78, 'Tierra Robada', 'WSI/36.png');
+        addMarker(1962, 3101, 79, 'Red County', 'WSI/37.png');
+        addMarker(2310, 2446, 80, 'Fallow Bridge', 'WSI/38.png');
+        addMarker(1564, 853, 81, 'San Fierro', 'SF/1.png');
+        addMarker(1620, 830, 82, 'Easter Bay Airport', 'SF/2.png');
+        addMarker(1633, 747, 83, 'Foster Valley', 'SF/3.png');
+        addMarker(1522, 765, 84, 'Foster Valley', 'SF/4.png');
+        addMarker(1915, 573, 85, 'Doherty', 'SF/5.png');
+        addMarker(1985, 468, 86, 'Garcia', 'SF/6.png');
+        addMarker(2071, 492, 87, 'Garcia', 'SF/7.png');
+        addMarker(2093, 469, 88, 'Garcia', 'SF/8.png');
+        addMarker(1964, 417, 89, 'Garcia', 'SF/9.png');
+        addMarker(2220, 323, 90, 'Queens', 'SF/10.png');
+        addMarker(2226, 635, 91, 'Doherty', 'SF/11.png');
+        addMarker(2244, 727, 92, 'Downtown', 'SF/12.png');
+        addMarker(1993, 806, 93, 'Doherty', 'SF/13.png');
+        addMarker(2004, 860, 94, 'Easter Bay Airport', 'SF/14.png');
+        addMarker(2044, 852, 95, 'Easter Basin', 'SF/15.png');
+        addMarker(2252, 657, 96, 'Kings', 'SF/16.png');
+        addMarker(2221, 707, 97, 'Doherty', 'SF/17.png');
+        addMarker(2854, 273, 98, 'Paradiso', 'SF/18.png');
+        addMarker(2392, 705.5, 99, 'Downtown', 'SF/19.png');
+        addMarker(3673, 3341.5, 100, 'Julius Thruway North', 'LV/1.png');
+        addMarker(2724, 3135.5, 101, 'LVA Freight Depot', 'LV/2.png');
+        addMarker(2450.5, 3251, 102, 'Red County', 'LV/3.png');
+        addMarker(2559, 3381, 103, 'Last Dime Motel', 'LV/4.png');
+        addMarker(2630.5, 3965, 104, 'Rockshore East', 'LV/5.png');
+        addMarker(2680.5, 4013, 105, 'Rockshore East', 'LV/6.png');
+        addMarker(2871, 3715.5, 106, 'The Camels Toe', 'LV/7.png');
+        addMarker(2917, 3605.5, 107, 'The Camels Toe', 'LV/8.png');
+        addMarker(3214, 3860.5, 108, 'Pilgrim', 'LV/9.png');
+        addMarker(3642.5, 3721.5, 109, 'Roca Escalante', 'LV/10.png');
+        addMarker(2690.5, 3565, 110, 'Come-A-Lot', 'LV/11.png');
+        addMarker(2828, 3489, 111, 'Come-A-Lot', 'LV/12.png');
+        addMarker(3555, 3445, 112, 'The Emerald Isle', 'LV/13.png');
+        addMarker(3323, 2703, 113, 'Whitewood Estates', 'LV/14.png');
+        addMarker(3458, 3281.5, 114, 'Harry Gold Parkway', 'LV/15.png');
+        addMarker(3522.5, 3280.5, 115, 'Harry Gold Parkway', 'LV/16.png');
+        addMarker(3589, 3252, 116, 'Redsands West', 'LV/17.png');
+        addMarker(3438, 2773.5, 117, 'Whitewood Estates', 'LV/18.png');
+        addMarker(3352.5, 2963, 118, 'Redsands West', 'LV/19.png');
+        addMarker(2475, 2973.5, 119, 'Blackfield Chapel', 'LV/20.png');
+        addMarker(2832.5, 3858.5, 120, 'Las Venturas', 'LV/21.png');
+        addMarker(536.5, 229, 121, 'Whetstone', 'WSI/39.png');
+        addMarker(190.5, 986.85, 122, 'Whetstone', 'WSI/40.png');
+        addMarker(447.21, 615, 123, 'Angel Pine', 'WSI/41.png');
+        addMarker(2592.5, 372.5, 125, 'Juniper Hill', 'SF/20.png');
+        addMarker(2853, 144, 126, 'Palisades', 'SF/21.png');
+        addMarker(2758, 133, 127, 'Palisades', 'SF/22.png');
+        addMarker(2888.5, 69, 128, 'Palisades', 'SF/23.png');
+        addMarker(2181, 252.5, 129, 'Palisades', 'SF/24.png');
+        addMarker(2591, 945, 130, 'Downtown', 'SF/25.png');
+        addMarker(2650.5, 854, 131, 'Financial', 'SF/26.png');
+        addMarker(532, 969, 132, 'Shady Creeks', 'WSI/42.png');
+        addMarker(2895.75, 259.5, 133, 'Paradiso', 'SF/27.png');
+        addMarker(1745.25, 1673.5, 134, 'Paradiso', 'WSI/43.png');
+        addMarker(1677, 1642, 135, 'Paradiso', 'WSI/44.png');
+        addMarker(1160, 1315, 136, 'The Farm', 'WSI/45.png');
+        addMarker(1868, 2268.5, 137, 'Blueberry', 'WSI/46.png');
+        addMarker(2583, 668, 138, 'Calton Heights', 'SF/28.png');
+        addMarker(3109, 3921, 139, 'Linden Station', 'LV/22.png');
+        addMarker(1694, 212, 140, 'Missionary Hill', 'SF/29.png');
+        addMarker(2333, 648.25, 141, 'Kings', 'SF/30.png');
+        addMarker(2494, 547, 142, 'Calton Heights', 'SF/31.png');
+        addMarker(2818.25, 431.75, 143, 'Juniper Hollow', 'SF/32.png');
+        addMarker(3065.8, 1114.6, 144, 'San Fierro', 'SF/33.png');
+        addMarker(1827.75, 538.25, 145, 'San Fierro', 'SF/34.png');
+        addMarker(2538, 550, 146, 'Chinatown', 'SF/35.png');
+        addMarker(2547.5, 3779, 147, 'Rockshore West', 'LV/23.png');
+        addMarker(3514, 1890, 148, 'El Castillo del Diablo', 'WSI/47.png');
+        addMarker(2335.5, 3262.75, 149, 'The Mako Span', 'WSI/48.png');
+        addMarker(3349, 2146, 150, 'Area 69', 'WSI/49.png');
+        addMarker(2451.5, 3936, 151, 'Frederick Bridge', 'WSI/50.png');
+        addMarker(3626, 389.5, 152, 'Bayside', 'WSI/51.png');
+        addMarker(1272.75, 3985.75, 153, 'East Beach', 'LS/44.png');
+        addMarker(743.5, 3207.25, 154, 'El Corona', 'LS/45.png');
+        addMarker(1235.5, 3936, 155, 'East Beach', 'LS/46.png');
+        addMarker(1017.5, 2899.5, 156, 'Market', 'LS/47.png');
+        addMarker(1119, 3056.5, 157, 'Downtown Los Santos', 'LS/48.png');
+        addMarker(3111.5, 3340.5, 158, 'Pirates in Mens Pants', 'LV/24.png');
+        addMarker(2846, 2432.5, 159, 'Bone County', 'WSI/52.png');
+        addMarker(2181, 296, 160, 'Queens', 'SF/36.png');
+        addMarker(1753.75, 2494.5, 161, 'Queens', 'WSI/53.png');
+        
+        // ... (keep all your existing addMarker calls)
+        
+        updateCounter();
+    };
+
+    map.on('click', function(e) {
+      console.log(e.latlng);
     });
-
-    const collectedIcon = L.icon({
-      iconUrl: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -28]
-    });
-
-    const markers = [];
-    let collectedCount = 0;
-
-    function addMarker(lat, lng, id, label, imagePath) {
-      const collectedKey = `marker_${id}_collected`;
-      const isCollected = localStorage.getItem(collectedKey) === 'true';
-
-      const marker = L.marker([lat, lng], {
-        icon: isCollected ? collectedIcon : defaultIcon
-      }).addTo(map);
-
-      const popupContent = `
-        <div>
-          <img src="${imagePath}" width="200"><br>
-          <strong>${label}</strong><br>
-          <button onclick="markCollected('${collectedKey}', ${markers.length}, this)">${
-            isCollected ? '✅ Zebrane!' : 'Zebrane?'
-          }</button>
-        </div>`;
-
-      marker.bindPopup(popupContent);
-      markers.push(marker);
-
-      if (isCollected) collectedCount++;
-    }
-
-    function markCollected(key, index, button) {
-  localStorage.setItem(key, 'true');
-  button.innerText = '✅ Collected';
-  button.disabled = true;
-
-  if (markers[index]) {
-    markers[index].setIcon(collectedIcon);
   }
 
-  collectedCount++;
-  updateCounter();
-}
-window.markCollected = markCollected; // <-- make it globally available
+  // Custom icons
+  const defaultIcon = L.icon({
+    iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
 
-    function updateCounter() {
-      document.getElementById('marker-count').textContent = `🐰 Pisanki: ${collectedCount} / ${markers.length}`;
+  const collectedIcon = L.icon({
+    iconUrl: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -28]
+  });
+
+  function addMarker(lat, lng, id, label, imagePath) {
+    const collectedKey = `marker_${id}_collected`;
+    const isCollected = localStorage.getItem(collectedKey) === 'true';
+
+    const marker = L.marker([lat, lng], {
+      icon: isCollected ? collectedIcon : defaultIcon
+    }).addTo(map);
+
+    const popupContent = `
+      <div>
+        <img src="${imagePath}" width="200"><br>
+        <strong>${label}</strong><br>
+        <button onclick="markCollected('${collectedKey}', ${markers.length}, this)">${
+          isCollected ? '✅ Zebrane!' : 'Zebrane?'
+        }</button>
+      </div>`;
+
+    marker.bindPopup(popupContent);
+    markers.push(marker);
+
+    if (isCollected) collectedCount++;
+  }
+
+  function markCollected(key, index, button) {
+    localStorage.setItem(key, 'true');
+    button.innerText = '✅ Zebrane!';
+    button.disabled = true;
+
+    if (markers[index]) {
+      markers[index].setIcon(collectedIcon);
     }
 
-    function resetProgress() {
-      if (confirm("Are you sure you want to reset your progress?")) {
-        for (let i = 0; i < markers.length; i++) {
-          const key = `marker_${i + 1}_collected`;
-          localStorage.removeItem(key);
-        }
-        location.reload();
+    collectedCount++;
+    updateCounter();
+  }
+  window.markCollected = markCollected;
+
+  function updateCounter() {
+    document.getElementById('count-display').textContent = `${collectedCount} / ${markers.length}`;
+  }
+
+  function resetProgress() {
+    if (confirm("Zresetować postęp?")) {
+      // Clear only the marker collected status
+      for (let i = 0; i < markers.length; i++) {
+        const key = `marker_${i + 1}_collected`;
+        localStorage.removeItem(key);
       }
+      // Don't remove the preferredMap setting
+      initMap(); // Reinitialize the map instead of reloading
     }
+  }
 
-addMarker(912.5, 2497, 1, 'Market Station', 'LS/1.png');
-addMarker(1205.5, 2604, 2, 'Vinewood', 'LS/2.png');
-addMarker(1202, 2846, 3, 'Market', 'LS/3.png');
-addMarker(1310, 2649.5, 4, 'Vinewood', 'LS/4.png');
-addMarker(1300.5, 3025.5, 5, 'Downtown LS', 'LS/5.png');
-addMarker(1303, 3127.5, 6, 'Downtown LS', 'LS/6.png');
-addMarker(1218, 2954.5, 7, 'Market', 'LS/7.png');
-addMarker(1119.5, 2469, 8, 'Rodeo', 'LS/8.png');
-addMarker(1008.5, 2593, 9, 'Marina', 'LS/9.png');
-addMarker(654, 2306, 10, 'Santa Maria Beach', 'LS/10.png');
-addMarker(512, 3065.5, 11, 'Los Santos International', 'LS/11.png');
-addMarker(611, 3580, 12, 'Willowfield', 'LS/13.png');
-addMarker(560.5, 3574.5, 13, 'Ocean Docks', 'LS/14.png');
-addMarker(565.5, 3195.5, 14, 'Verdant Bluffs', 'LS/15.png');
-addMarker(705, 3341, 15, 'El Corona', 'LS/16.png');
-addMarker(766, 3484, 16, 'Willowfield', 'LS/17.png');
-addMarker(1235, 3922, 17, 'Los Flores', 'LS/18.png');
-addMarker(1188.5, 3954.5, 18, 'East Beach', 'LS/19.png');
-addMarker(1267, 3788.5, 19, 'Las Colinas', 'LS/20.png');
-addMarker(1090.5, 3729.5, 20, 'East Los Santos', 'LS/21.png');
-addMarker(1110.5, 3757, 21, 'East Los Santos', 'LS/22.png');
-addMarker(1043.5, 3845.5, 22, 'East Los Santos', 'LS/23.png');
-addMarker(984.5, 3681.5, 23, 'East Los Santos', 'LS/24.png');
-addMarker(1064.5, 3634, 24, 'East Los Santos', 'LS/25.png');
-addMarker(1099, 3083.5, 25, 'Downtown Los Santos', 'LS/26.png');
-addMarker(771, 2809, 26, 'Verdant Bluffs', 'LS/27.png');
-addMarker(808, 3264.5, 27, 'Little Mexico', 'LS/28.png');
-addMarker(1153, 3430, 28, 'Glen Park', 'LS/29.png');
-addMarker(1310, 3419.5, 29, 'Las Colinas', 'LS/30.png');
-addMarker(1257, 3449.5, 30, 'Glen Park', 'LS/31.png');
-addMarker(1192.5, 3382, 31, 'Glen Park', 'LS/32.png');
-addMarker(1435.5, 2748.5, 32, 'Mulholland', 'LS/33.png');
-addMarker(1387, 2628.5, 33, 'Vinewood', 'LS/34.png');
-addMarker(1395.5, 2569, 34, 'Richman', 'LS/35.png');
-addMarker(1428, 2519, 35, 'Richman', 'LS/36.png');
-addMarker(816.5, 2141, 36, 'Santa Maria Beach', 'LS/37.png');
-addMarker(978.5, 3248, 37, 'Commerce', 'LS/38.png');
-addMarker(662, 2774.5, 38, 'Verdant Bluffs', 'LS/39.png');
-addMarker(807, 2850, 39, 'Conference Center', 'LS/40.png');
-addMarker(915.5, 2922.5, 40, 'Verdant Bluffs', 'LS/41.png');
-addMarker(760, 2727, 41, 'Verona Beach', 'LS/42.png');
-addMarker(1059, 2832, 42, 'Market', 'LS/43.png');
-addMarker(1105.75, 2027.25, 43, 'Flint Intersection', 'WSI/1.png');
-addMarker(1222, 2000.5, 44, 'Flint County', 'WSI/2.png');
-addMarker(1933, 2577, 45, 'Red County', 'WSI/3.png');
-addMarker(2028, 3638, 46, 'Palomino Creek', 'WSI/4.png');
-addMarker(2313, 3647, 47, 'Red County', 'WSI/5.png');
-addMarker(2070, 3569, 48, 'Palomino Creek', 'WSI/6.png');
-addMarker(2102.75, 3574.75, 49, 'Palomino Creek', 'WSI/7.png');
-addMarker(2125.5, 3714.5, 50, 'Palomino Creek', 'WSI/8.png');
-addMarker(2126, 3919.5, 51, 'Hankypanky Point', 'WSI/9.png');
-addMarker(2064.75, 3967.75, 52, 'Red County', 'WSI/10.png');
-addMarker(1833.5, 3908.25, 53, 'North Rock', 'WSI/11.png');
-addMarker(2263, 3930, 54, 'Frederick Bridge', 'WSI/12.png');
-addMarker(2379, 2971, 55, 'Montgomery', 'WSI/13.png');
-addMarker(1861, 2257, 56, 'Blueberry', 'WSI/14.png');
-addMarker(3700, 554, 57, 'Bayside Marina', 'WSI/15.png');
-addMarker(3860, 490, 58, 'Tierra Robada', 'WSI/16.png');
-addMarker(3862, 510, 59, 'Bayside Tunnel', 'WSI/17.png');
-addMarker(3773, 600, 60, 'Tierra Robada', 'WSI/18.png');
-addMarker(3139, 229, 61, 'San Fierro', 'WSI/19.png');
-addMarker(3919, 1468, 62, 'Valle Ocultado', 'WSI/20.png');
-addMarker(3865, 1898, 63, 'Las Payasadas', 'WSI/21.png');
-addMarker(3713, 2282, 64, 'Verdant Meadows', 'WSI/22.png');
-addMarker(3655, 1524, 65, 'Arco del Oeste', 'WSI/23.png');
-addMarker(1561, 2527.5, 66, 'Dillimore', 'WSI/24.png');
-addMarker(3512.5, 1609, 67, 'The Sherman Dam', 'WSI/25.png');
-addMarker(2432, 2164, 68, 'Middle Bridge', 'WSI/26.png');
-addMarker(2321, 2120, 69, 'Blueberry Island', 'WSI/27.png');
-addMarker(2814, 1947, 70, 'Fort Carson', 'WSI/28.png');
-addMarker(2833, 2029, 71, 'Fort Carson', 'WSI/29.png');
-addMarker(3781, 2327.5, 72, 'Verdant Meadows', 'WSI/30.png');
-addMarker(3401, 2522, 73, 'Bone County', 'WSI/31.png');
-addMarker(1825, 3173, 74, 'Red County', 'WSI/32.png');
-addMarker(2342, 2743, 75, 'Red County', 'WSI/33.png');
-addMarker(2641, 2544, 76, 'Hunter Quarry', 'WSI/34.png');
-addMarker(3314, 1198, 77, 'Tierra Robada', 'WSI/35.png');
-addMarker(3626, 1287, 78, 'Tierra Robada', 'WSI/36.png');
-addMarker(1962, 3101, 79, 'Red County', 'WSI/37.png');
-addMarker(2310, 2446, 80, 'Fallow Bridge', 'WSI/38.png');
-addMarker(1564, 853, 81, 'San Fierro', 'SF/1.png');
-addMarker(1620, 830, 82, 'Easter Bay Airport', 'SF/2.png');
-addMarker(1633, 747, 83, 'Foster Valley', 'SF/3.png');
-addMarker(1522, 765, 84, 'Foster Valley', 'SF/4.png');
-addMarker(1915, 573, 85, 'Doherty', 'SF/5.png');
-addMarker(1985, 468, 86, 'Garcia', 'SF/6.png');
-addMarker(2071, 492, 87, 'Garcia', 'SF/7.png');
-addMarker(2093, 469, 88, 'Garcia', 'SF/8.png');
-addMarker(1964, 417, 89, 'Garcia', 'SF/9.png');
-addMarker(2220, 323, 90, 'Queens', 'SF/10.png');
-addMarker(2226, 635, 91, 'Doherty', 'SF/11.png');
-addMarker(2244, 727, 92, 'Downtown', 'SF/12.png');
-addMarker(1993, 806, 93, 'Doherty', 'SF/13.png');
-addMarker(2004, 860, 94, 'Easter Bay Airport', 'SF/14.png');
-addMarker(2044, 852, 95, 'Easter Basin', 'SF/15.png');
-addMarker(2252, 657, 96, 'Kings', 'SF/16.png');
-addMarker(2221, 707, 97, 'Doherty', 'SF/17.png');
-addMarker(2854, 273, 98, 'Paradiso', 'SF/18.png');
-addMarker(2392, 705.5, 99, 'Downtown', 'SF/19.png');
-addMarker(3673, 3341.5, 100, 'Julius Thruway North', 'LV/1.png');
-addMarker(2724, 3135.5, 101, 'LVA Freight Depot', 'LV/2.png');
-addMarker(2450.5, 3251, 102, 'Red County', 'LV/3.png');
-addMarker(2559, 3381, 103, 'Last Dime Motel', 'LV/4.png');
-addMarker(2630.5, 3965, 104, 'Rockshore East', 'LV/5.png');
-addMarker(2680.5, 4013, 105, 'Rockshore East', 'LV/6.png');
-addMarker(2871, 3715.5, 106, 'The Camels Toe', 'LV/7.png');
-addMarker(2917, 3605.5, 107, 'The Camels Toe', 'LV/8.png');
-addMarker(3214, 3860.5, 108, 'Pilgrim', 'LV/9.png');
-addMarker(3642.5, 3721.5, 109, 'Roca Escalante', 'LV/10.png');
-addMarker(2690.5, 3565, 110, 'Come-A-Lot', 'LV/11.png');
-addMarker(2828, 3489, 111, 'Come-A-Lot', 'LV/12.png');
-addMarker(3555, 3445, 112, 'The Emerald Isle', 'LV/13.png');
-addMarker(3323, 2703, 113, 'Whitewood Estates', 'LV/14.png');
-addMarker(3458, 3281.5, 114, 'Harry Gold Parkway', 'LV/15.png');
-addMarker(3522.5, 3280.5, 115, 'Harry Gold Parkway', 'LV/16.png');
-addMarker(3589, 3252, 116, 'Redsands West', 'LV/17.png');
-addMarker(3438, 2773.5, 117, 'Whitewood Estates', 'LV/18.png');
-addMarker(3352.5, 2963, 118, 'Redsands West', 'LV/19.png');
-addMarker(2475, 2973.5, 119, 'Blackfield Chapel', 'LV/20.png');
-addMarker(2832.5, 3858.5, 120, 'Las Venturas', 'LV/21.png');
-addMarker(536.5, 229, 121, 'Whetstone', 'WSI/39.png');
-addMarker(190.5, 986.85, 122, 'Whetstone', 'WSI/40.png');
-addMarker(447.21, 615, 123, 'Angel Pine', 'WSI/41.png');
-addMarker(2592.5, 372.5, 125, 'Juniper Hill', 'SF/20.png');
-addMarker(2853, 144, 126, 'Palisades', 'SF/21.png');
-addMarker(2758, 133, 127, 'Palisades', 'SF/22.png');
-addMarker(2888.5, 69, 128, 'Palisades', 'SF/23.png');
-addMarker(2181, 252.5, 129, 'Palisades', 'SF/24.png');
-addMarker(2591, 945, 130, 'Downtown', 'SF/25.png');
-addMarker(2650.5, 854, 131, 'Financial', 'SF/26.png');
-addMarker(532, 969, 132, 'Shady Creeks', 'WSI/42.png');
-addMarker(2895.75, 259.5, 133, 'Paradiso', 'SF/27.png');
-addMarker(1745.25, 1673.5, 134, 'Fallen Tree', 'WSI/43.png');
-addMarker(1677, 1642, 135, 'Fallen Tree', 'WSI/44.png');
-addMarker(1160, 1315, 136, 'The Farm', 'WSI/45.png');
-addMarker(1868, 2268.5, 137, 'Blueberry', 'WSI/46.png');
-addMarker(2583, 668, 138, 'Calton Heights', 'SF/28.png');
-addMarker(3109, 3921, 139, 'Linden Station', 'LV/22.png');
-addMarker(1694, 212, 140, 'Missionary Hill', 'SF/29.png');
-addMarker(2333, 648.25, 141, 'Kings', 'SF/30.png');
-addMarker(2494, 547, 142, 'Calton Heights', 'SF/31.png');
-addMarker(2818.25, 431.75, 143, 'Juniper Hollow', 'SF/32.png');
-addMarker(3065.8, 1114.6, 144, 'San Fierro', 'SF/33.png');
-addMarker(1827.75, 538.25, 145, 'San Fierro', 'SF/34.png');
-addMarker(2538, 550, 146, 'Chinatown', 'SF/35.png');
-addMarker(2547.5, 3779, 147, 'Rockshore West', 'LV/23.png');
-addMarker(3514, 1890, 148, 'El Castillo del Diablo', 'WSI/47.png');
-addMarker(2335.5, 3262.75, 149, 'The Mako Span', 'WSI/48.png');
-addMarker(3349, 2146, 150, 'Area 69', 'WSI/49.png');
-addMarker(2451.5, 3936, 151, 'Frederick Bridge', 'WSI/50.png');
-addMarker(3626, 389.5, 152, 'Bayside', 'WSI/51.png');
-addMarker(1272.75, 3985.75, 153, 'East Beach', 'LS/44.png');
-addMarker(743.5, 3207.25, 154, 'El Corona', 'LS/45.png');
-addMarker(1235.5, 3936, 155, 'East Beach', 'LS/46.png');
-addMarker(1017.5, 2899.5, 156, 'Market', 'LS/47.png');
-addMarker(1223, 3064, 157, 'Downtown Los Santos', 'LS/48.png');
-addMarker(3111.5, 3340.5, 158, 'Pirates in Mens Pants', 'LV/24.png');
-addMarker(2846, 2432.5, 159, 'Bone County', 'WSI/52.png');
-addMarker(2181, 296, 160, 'Queens', 'SF/36.png');
-addMarker(1753.75, 2494.5, 161, 'Queens', 'WSI/53.png');
+  function toggleMapImage() {
+    currentMapImage = currentMapImage === 'map.jpeg' ? 'map_alt.jpg' : 'map.jpeg';
+    localStorage.setItem('preferredMap', currentMapImage);
+    initMap(); // Reinitialize the map completely
+  }
 
-
-
-updateCounter();
-
-
-      map.on('click', function(e) {
-  console.log(e.latlng); // This logs coordinates when youw click
-});
-    };
-  </script>
+  // Initialize the map when the page loads
+  initMap();
+</script>
 </body>
 </html>
